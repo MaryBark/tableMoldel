@@ -1,4 +1,4 @@
-include "mainwindow.h"
+#include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
 #include "stateVectorModel.h"
@@ -38,3 +38,23 @@ void MainWindow::on_pushButton_2_clicked()
     ui->tabWidget->setCurrentIndex(1);
     ui->stackedWidget->setCurrentIndex(1);
 }
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    ui->tabWidget->setCurrentIndex(2);
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    ui->tabWidget->setCurrentIndex(3);
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    ui->tabWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
