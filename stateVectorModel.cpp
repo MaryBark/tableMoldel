@@ -5,25 +5,32 @@
 #include <QColor>
 #include <QPainter>
 #include <QDebug>
+#include <QLabel>
 
 class stateVectorModelPrivate
 {
 public:
-    QDateTime m_dt; // время КА
-    QList <double > m_q; // вектор координат и скоростей КА
+//    QDateTime m_dt; // время КА
+//    QList <double > m_q; // вектор координат и скоростей КА
+    QByteArray m_q;
 };
 
 stateVectorModel::stateVectorModel(QObject *parent) :
-    m_dataModelptr(new stateVectorModelPrivate()), QAbstractTableModel()
+    m_dataModelptr(new stateVectorModelPrivate), QAbstractTableModel(parent)
 {
 
 }
 
-stateVectorModel::stateVectorModel(const QList<double> dataModel, const QObject *parent):
-    m_dataModelptr(new stateVectorModelPrivate()), QAbstractTableModel()
+stateVectorModel::stateVectorModel(const QByteArray &dataModel, const QObject *parent):
+    m_dataModelptr(new stateVectorModelPrivate()),
+    QAbstractTableModel(/*parent*/)
 {
-
     m_dataModelptr->m_q = dataModel;
+}
+
+stateVectorModel::~stateVectorModel()
+{
+    delete m_dataModelptr;
 }
 
 int stateVectorModel::rowCount(const QModelIndex &parent) const
@@ -43,23 +50,23 @@ QVariant stateVectorModel::data(const QModelIndex &index, int role) const
     {
     case Qt::DisplayRole:
     {
-//        m_dataModelptr->m_q[0] = 10;
+//        m_dataModelptr->m_q = QList<double>();
+//        m_dataModelptr->m_q << = 10;
 //        m_dataModelptr->m_q[1] = 10;
 //        m_dataModelptr->m_q[3] = 10;
 //        int d =  m_dataModelptr->m_q[0];
 
-        QVariant value;
+//        QVariant value;
+//        if (!index.isValid())
+//                return QVariant();
 
-        m_dataModelptr->m_q = QList<double>();
+//        QModelIndex index = this->model()->index(0, 0);
+//        QLabel *lblImage = new QLabel();
+//        lblImage->setPixmap(QPixmap("free-icon-whatsapp-3670051.png"));
+//        return lblImage;
+//        tabelview->setIndexWidget(index, lblImage);
 
-
-        if (!index.isValid())
-                return QVariant();
-
-
-        return QIcon("free-icon-whatsapp-3670051.png");
-
-
+//        return QIcon("free-icon-whatsapp-3670051.png");
 
 //        switch (index.column()) {
 //        case 0: {
@@ -75,13 +82,35 @@ QVariant stateVectorModel::data(const QModelIndex &index, int role) const
 //            break;
 //        }
 //        }
-        return /*m_dataModelptr->m_q*/value;
+
+//        int d = m_dataModelptr->m_q.at(index.row() * 7 + index.column());
+
+//        return QVariant(d)/*m_dataModelptr->m_q*//*value*/;
 
     }
      break;
+    case Qt::DecorationRole:
+       {
+        if(index.column() == 1) // а
+            return QIcon("satellite.png");
+        if(index.column() == 2) // i
+            return QIcon("orbit.png");
+        if(index.column() == 3) // e
+            return QIcon("orbit (1).png");
+        if(index.column() == 4) // u
+            return QIcon("satellite (1).png");
+        if(index.column() == 5) // w
+            return QIcon("planet.png");
+        if(index.column() == 6) // w
+            return QIcon("satellite(2).png");
+
+
+
+    }
+         break;
     case Qt::BackgroundRole:
     {
-        return QColor(155, 0, 0, 40);
+        return QColor(55, 0, 0, 40);
     }
       break;
      case Qt::FontRole:
@@ -101,44 +130,11 @@ QVariant stateVectorModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-
-
-
-
-
-
-
-
-TableItemDelegate::TableItemDelegate()
+Qt::ItemFlags stateVectorModel::flags(const QModelIndex &index) const
 {
 
 }
 
-QSize TableItemDelegate::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-    return QItemDelegate::sizeHint(option, index);
-}
 
-void TableItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-{
-  QStyleOptionViewItem myOption = option;
 
-    if (index.column()==2)
-    {
-        QString data = index.model()->data(index, Qt::DisplayRole).toString();
 
-        myOption.displayAlignment = Qt::AlignCenter | Qt::AlignVCenter;
-
-        QString icon = ":/img/" + index.model()->data(index, Qt::DisplayRole).toString();
-
-        QPixmap pixmap2(icon);
-
-        painter->drawPixmap(myOption.rect.x()+30,myOption.rect.y(),32,32, pixmap2);
-    }
-    else
-    {
-        drawDisplay(painter, option, option.rect, index.model()->data(index, Qt::DisplayRole).toString());
-
-    }
-    drawFocus(painter, myOption, myOption.rect);
-}
