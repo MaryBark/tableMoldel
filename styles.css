@@ -7,8 +7,6 @@
 /* Цвет фона QGroupBox				№555555		*/
 /* Цвет фона QLabel				№505A62		*/
 /*								*/
-/* Цвет фона "не нажатое состояние кнопки"	663300		*/	
-/* Цвет рамки "Нажатое состояние кнопки"	#454545		*/
 /* Цвет фона QPushButton, QSlider: HOVER	#CC6600		*/
 /* Цвет рамки: HOVER 				#994C00		*/	
 /*								*/
@@ -337,14 +335,14 @@ QTabBar::tab:!selected {
 /*************  QTableView  ********************/
 
 QTableView QTableCornerButton::section {
-     background: #555555;
+     background: #E0FFFF;
      border: none;
 }
 
 QTableView {
     color: #FFFFFF; 
     gridline-color: #CC6600;
-    background-color: #555555; 
+    background-color: #E0FFFF; 
     selection-background-color: #888888;
     border: 1px groove #FFFFFF;
     border-radius: 3px;
@@ -355,7 +353,7 @@ QTableView {
 
 QLabel {
     background-color: transparent;  /*#E6E6FA;*/
-    color: #FFFFFF;
+    color: #00008B;
     font-family: "UKIJ Teng";
     border: 0px solid;
 }
@@ -494,6 +492,8 @@ QMessageBox QPushButton {
 }
 
 
+/*************  QTreeWidget  ****************/
+
 QTreeWidget {
 	color:rgb(255,255,255);
 	selection-background-color:  #CC6600;
@@ -503,7 +503,12 @@ QTreeWidget {
 	*/
 }
 
+/*************  QAction  ****************/
 
+QAction {
+    background-color: #00008B;
+    width: 20px; #00008B
+}
 
 
 
